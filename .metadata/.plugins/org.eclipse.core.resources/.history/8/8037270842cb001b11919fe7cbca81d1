@@ -1,0 +1,4 @@
+# Load the properties based on profile
+# Ordering for reading 1.application.properties 2.application-dev.properties
+spring.profiles.active=dev
+

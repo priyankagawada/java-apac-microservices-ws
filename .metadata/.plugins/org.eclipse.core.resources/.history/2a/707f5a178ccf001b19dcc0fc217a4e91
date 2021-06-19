@@ -1,0 +1,9 @@
+package com.training.boot.ms;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@ConfigurationProperties("test")
+public class Configuration {
+
+	private String message;
+}

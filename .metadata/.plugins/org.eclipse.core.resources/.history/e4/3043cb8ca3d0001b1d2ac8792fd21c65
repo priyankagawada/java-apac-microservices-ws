@@ -1,0 +1,5 @@
+package com.training.boot.ms.model;
+
+public class CurrencyConversion {
+
+}

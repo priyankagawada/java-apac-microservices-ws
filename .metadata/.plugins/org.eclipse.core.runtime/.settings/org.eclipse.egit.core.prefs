@@ -1,0 +1,4 @@
+GitRepositoriesView.GitDirectories=C\:\\Priyanka\\Java APAC\\Spring Cloud Microservices\\MicroserviceWS\\flight-fare-service\\.git;C\:\\Priyanka\\Java APAC\\Spring Cloud Microservices\\MicroserviceWS\\currency-conversion-service\\.git;
+GitRepositoriesView.GitDirectories.relative=flight-fare-service\\.git;currency-conversion-service\\.git;
+core_autoIgnoreDerivedResources=false
+eclipse.preferences.version=1

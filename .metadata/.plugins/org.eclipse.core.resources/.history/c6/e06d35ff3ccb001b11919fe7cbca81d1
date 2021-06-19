@@ -1,0 +1,24 @@
+spring.application.name=currency-conversion-service
+server.port=7101
+
+# Configuration for Config Server
+#spring.cloud.config.uri: http://localhost:8888
+#spring.config.import=configserver:http://localhost:8888
+
+
+# Configuration for GIT repository - github
+spring.cloud.config.server.git.uri=https://github.com/priyankagawada/config-server-repo
+spring.cloud.config.server.git.username=priyankagawada
+spring.cloud.config.server.git.password=Ishika@0907
+spring.cloud.config.server.git.search-paths={application}
+
+spring.cloud.config.git.default-label=main
+# Load the properties based on profile
+# Ordering for reading 1.application.properties 2.application-dev.properties
+spring.profiles.active=dev
+
+
+
+
+
+

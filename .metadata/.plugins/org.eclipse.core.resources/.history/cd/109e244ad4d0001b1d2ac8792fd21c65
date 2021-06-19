@@ -1,0 +1,8 @@
+package com.training.boot.ms.feign;
+
+import org.springframework.cloud.openfeign.FeignClient;
+
+@FeignClient(name = "currency-conversion")
+public interface CurrencyConverterFeign {
+
+}

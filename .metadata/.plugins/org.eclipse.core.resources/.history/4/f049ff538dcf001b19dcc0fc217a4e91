@@ -1,0 +1,20 @@
+package com.training.boot.ms.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import com.training.boot.ms.Configuration;
+
+@org.springframework.stereotype.Service
+//@RefreshScope
+public class Service {
+
+	@Autowired
+	private Configuration configuration;
+
+	private String message;
+
+	public String getMessage() {
+		return this.configuration.getMessage();
+	}
+}

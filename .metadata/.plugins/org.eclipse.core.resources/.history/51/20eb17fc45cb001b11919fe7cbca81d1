@@ -1,0 +1,14 @@
+package com.training.boot.ms.controller;
+
+import org.springframework.beans.factory.annotation.Value;
+
+public class Service {
+	
+	@Value("${test.message")
+	String message;
+	
+	public String getMessage() {
+		return this.message;
+	}
+
+}

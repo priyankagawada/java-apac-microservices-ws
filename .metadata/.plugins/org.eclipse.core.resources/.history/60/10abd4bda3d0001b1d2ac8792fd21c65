@@ -1,0 +1,43 @@
+package com.training.boot.ms.model;
+
+import java.math.BigDecimal;
+
+public class CurrencyConversion {
+	private String currencyFrom;
+	private String currencyTo;
+	private BigDecimal conversionRate;
+	private String environment;
+
+	public String getCurrencyFrom() {
+		return currencyFrom;
+	}
+
+	public void setCurrencyFrom(String currencyFrom) {
+		this.currencyFrom = currencyFrom;
+	}
+
+	public String getCurrencyTo() {
+		return currencyTo;
+	}
+
+	public void setCurrencyTo(String currencyTo) {
+		this.currencyTo = currencyTo;
+	}
+
+	public BigDecimal getConversionRate() {
+		return conversionRate;
+	}
+
+	public void setConversionRate(BigDecimal conversionRate) {
+		this.conversionRate = conversionRate;
+	}
+
+	public String getEnvironment() {
+		return environment;
+	}
+
+	public void setEnvironment(String environment) {
+		this.environment = environment;
+	}
+
+}

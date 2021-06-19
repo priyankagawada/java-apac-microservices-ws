@@ -1,0 +1,18 @@
+package com.training.boot.ms.feign;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.training.boot.ms.model.CurrencyConversion;
+import com.training.boot.ms.model.CurrencyConverter;
+
+@FeignClient(name = "currency-conversion")
+public interface CurrencyConverterFeign {
+
+	@GetMapping(value = "/from/{from}/to/{to}")
+	public CurrencyConversion convertCurrency(@PathVariable String from, @PathVariable String to) ;
+	
+	
+}

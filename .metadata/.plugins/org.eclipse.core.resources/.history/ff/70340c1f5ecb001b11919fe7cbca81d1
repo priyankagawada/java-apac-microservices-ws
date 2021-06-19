@@ -1,0 +1,11 @@
+spring.application.name=currency-conversion-service
+server.port=7101
+#enable the all actuator endpoints
+management.endpoints.web.exposure.include=*
+
+# Configuration for Eureka Server
+# register application as client to Eureka
+#eureka.client.service-url.defaultZone=http://localhost:8010/eureka
+
+# generata a unique name for the instance
+#eureka.instance.instance-id=${spring.application.name}:${server.port}

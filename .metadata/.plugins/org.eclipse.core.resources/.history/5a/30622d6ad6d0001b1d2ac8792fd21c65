@@ -1,0 +1,124 @@
+package com.training.boot.ms.controller;
+
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Example;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import com.training.boot.ms.dao.FlightFareRepository;
+import com.training.boot.ms.feign.CurrencyConverterFeign;
+import com.training.boot.ms.model.CurrencyConversion;
+import com.training.boot.ms.model.FlightFare;
+
+@RestController
+@RequestMapping(value = "/api/v1")
+public class FlightFareController {
+
+	@Autowired
+	private FlightFareRepository repository;
+
+	@Value("${base.currency}")
+	private String baseCurrency;
+
+	// @Autowired
+	// private RestTemplate restTemplate;
+
+	@Autowired
+	private CurrencyConverterFeign feign;
+
+	@GetMapping("/status/check")
+	public String status() {
+		return "up";
+	}
+
+	@GetMapping("/flight/{flightcode}/fare/{currency}")
+	public FlightFare getSingleFareTicket(@PathVariable("flightcode") String flightCode,
+			@PathVariable String currency) {
+		FlightFare fare = this.getFlightFare(flightCode);
+		System.out.println(fare.getFlightCode() + " " + fare.getCurrency());
+		fare.setCurrency(currency);
+
+		if (!baseCurrency.equals(currency)) {
+			// conversion rate method called here
+			fare.setFlightFare(fare.getFlightFare().multiply(getConversionBigDecimalwithFeign(currency)));
+		}
+		return fare;
+	}
+
+	private FlightFare getFlightFare(String flightCode) {
+
+		FlightFare flight = new FlightFare(null, flightCode, null);
+		Example<FlightFare> flightFare = Example.of(flight);
+		FlightFare fare = repository.findOne(flightFare).get();
+		return fare;
+	}
+
+	// Call the currency conversion service here
+	/*
+	 * private BigDecimal getConversionBigDecimal(String toCurrency) {
+	 * 
+	 * // create object of RestTemplate class RestTemplate restTemplate = new
+	 * RestTemplate();
+	 * 
+	 * // set the map object to store the path variables Map<String, String>
+	 * urlPathVariables = new HashMap<String, String>();
+	 * 
+	 * urlPathVariables.put("from", baseCurrency); urlPathVariables.put("to",
+	 * toCurrency);
+	 * 
+	 * final String baseUrl = "http://localhost:7101/api/v1/from/{from}/to/{to}";
+	 * 
+	 * // JSON Data - We need incoming response data to a type
+	 * ResponseEntity<CurrencyConversion> responseEntity =
+	 * restTemplate.getForEntity(baseUrl, CurrencyConversion.class,
+	 * urlPathVariables); System.out.println(responseEntity.toString());
+	 * CurrencyConversion converter = responseEntity.getBody();
+	 * System.out.println("Converter Details - " + converter); return
+	 * converter.getConversionRate(); }
+	 */
+
+	// Call the currency conversion service here
+	/*
+	 * private BigDecimal getConversionBigDecimalwithLB(String toCurrency) {
+	 * 
+	 * // set the map object to store the path variables Map<String, String>
+	 * urlPathVariables = new HashMap<String, String>();
+	 * 
+	 * urlPathVariables.put("from", baseCurrency); urlPathVariables.put("to",
+	 * toCurrency);
+	 * 
+	 * // resolving of currency-conversion name will be done by Eureka Server final
+	 * String baseUrl = "http://currency-conversion/api/v1/from/{from}/to/{to}";
+	 * 
+	 * // JSON Data - We need incoming response data to a type
+	 * ResponseEntity<CurrencyConversion> responseEntity =
+	 * restTemplate.getForEntity(baseUrl, CurrencyConversion.class,
+	 * urlPathVariables); System.out.println(responseEntity.toString());
+	 * CurrencyConversion converter = responseEntity.getBody();
+	 * System.out.println("Converter Details - " + converter); return
+	 * converter.getConversionRate(); }
+	 */
+
+	private BigDecimal getConversionBigDecimalwithFeign(String toCurrency) {
+
+		System.out.println("Feign Client Method was called from flight-fare service...");
+		// call to the
+		// CurrencyConversionClient
+		// -> feign declaration
+		// CurrencyConversion
+		CurrencyConversion returnValue = feign.convertCurrency(baseCurrency, toCurrency);
+		System.out.println("Converter Details - " + returnValue);
+		return returnValue.getConversionRate();
+
+	}
+
+}

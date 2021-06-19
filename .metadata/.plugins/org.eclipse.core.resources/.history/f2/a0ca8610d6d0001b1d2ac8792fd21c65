@@ -1,0 +1,32 @@
+package com.training.boot.ms;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
+
+import com.training.boot.ms.feign.CurrencyConverterFeign;
+
+@SpringBootApplication
+public class FlightFareServiceApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(FlightFareServiceApplication.class, args);
+	}
+
+	// Ribbon - Load Balancer coming from eureka server 
+	// Instead of Ribbon, use LoadBalancer with FeignClient
+	/*@Bean
+	@LoadBalanced
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
+	}*/
+	
+	
+	
+	
+	
+	
+}

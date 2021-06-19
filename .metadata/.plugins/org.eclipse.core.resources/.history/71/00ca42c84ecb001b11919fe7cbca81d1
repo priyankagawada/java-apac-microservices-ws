@@ -1,0 +1,7 @@
+spring.application.name=eurekaserver
+
+#Disable client configuration on eureka server
+eureka.client.register-with-eureka=false
+eureka.client.fetch-registry=false
+
+

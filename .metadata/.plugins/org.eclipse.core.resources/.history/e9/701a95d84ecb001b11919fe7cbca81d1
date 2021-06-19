@@ -1,0 +1,8 @@
+spring.application.name=eurekaserver
+
+#Disable client configuration on eureka server
+eureka.client.register-with-eureka=false
+eureka.client.fetch-registry=false
+
+# DEfine the service URL of eureka on local machine or AWS zones 
+#eureka.client.service-url.defaultZone=http://localhost:8761/eureka

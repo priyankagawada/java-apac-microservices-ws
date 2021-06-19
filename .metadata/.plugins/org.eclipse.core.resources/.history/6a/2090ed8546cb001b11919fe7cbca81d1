@@ -1,0 +1,16 @@
+package com.training.boot.ms.controller;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+
+@org.springframework.stereotype.Service
+@RefreshScope
+public class Service {
+	
+	@Value("${test.message}")
+	String message;
+	
+	public String getMessage() {
+		return this.message;
+	}
+}
